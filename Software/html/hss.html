@@ -1,0 +1,336 @@
+<html>
+<head>
+
+<style>
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: green;
+
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: red;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: #2196F3;
+
+  padding: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: left;
+  color: black
+}
+
+.hss-heading-font {
+    font-family: "Arial", cursive, bold, sans-serif;
+    font-size: 48px;
+    color: blue;
+}
+
+</style>
+
+<script src = "/socket.io/socket.io.js"> </script>
+<script type=text/javascript src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  var socket = io.connect();
+  socket.on("pinUpdate", handlePinUpdate);
+  socket.emit('monitor', 'P8_11');
+  socket.emit('monitor', 'P8_14');
+  socket.emit('monitor', 'P8_15');
+  socket.emit('monitor', 'P8_16');
+
+  function handlePinUpdate(message) {
+    var data = JSON.parse(message);
+    if (data.pin == "P8_11")
+    {
+      if (data.value == 0)
+      {
+         document.getElementById("GarageDoor").checked = false;
+      }
+      else
+      {
+         document.getElementById("GarageDoor").checked = true;
+      }
+    } // End if (data.pin == "P8_11")
+
+    if (data.pin == "P8_14")
+    {
+      if (data.value == 0)
+      {
+         document.getElementById("CarbonMonoxideSensor").checked = false;
+      }
+      else
+      {
+         document.getElementById("CarbonMonoxideSensor").checked = true;
+      }
+    } // End if (data.pin == "P8_14")
+
+    if (data.pin == "P8_15")
+    {
+      if (data.value == 0)
+      {
+         document.getElementById("NaturalGasSensor").checked = false;
+      }
+      else
+      {
+         document.getElementById("NaturalGasSensor").checked = true;
+      }
+    } // End if (data.pin == "P8_15")
+
+    if (data.pin == "P8_16")
+    {
+      if (data.value == 0)
+      {
+         document.getElementById("MotionSensor").checked = false;
+      }
+      else
+      {
+         document.getElementById("MotionSensor").checked = true;
+      }
+    } // End if (data.pin == "P8_16")
+  } // End handlePinUpdate(message)
+
+  function FunLivingRoomLight(){
+     var x = document.getElementById("LivingRoomLight").checked;
+     if(x == false)
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_9", "value":0}');
+     }
+     else
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_9", "value":1}');
+     }
+  }
+
+  function FunTV(){
+     var x = document.getElementById("TV").checked;
+     if(x == false)
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_10", "value":0}');
+     }
+     else
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_10", "value":1}');
+     }
+  }
+
+  function FunGarageDoor(){
+     var x = document.getElementById("GarageDoor").checked;
+     if(x == false)
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_11", "value":0}');
+     }
+     else
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_11", "value":1}');
+     }
+  }
+
+  function FunGasRange(){
+     var x = document.getElementById("GasRange").checked;
+     if(x == false)
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_12", "value":0}');
+     }
+     else
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_12", "value":1}');
+     }
+  }
+
+  function FunCarbonMonoxideSensor(){
+     var x = document.getElementById("CarbonMonoxideSensor").checked;
+     if(x == false)
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_14", "value":0}');
+     }
+     else
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_14", "value":1}');
+     }
+  }
+
+  function FunNaturalGasSensor(){
+     var x = document.getElementById("NaturalGasSensor").checked;
+     if(x == false)
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_15", "value":0}');
+     }
+     else
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_15", "value":1}');
+     }
+  }
+
+  function FunMotionSensor(){
+     var x = document.getElementById("MotionSensor").checked;
+     if(x == false)
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_16", "value":0}');
+     }
+     else
+     {
+       socket.emit('digitalWrite', '{"pin":"P8_16", "value":1}');
+     }
+  }
+
+  function FunFrontDoorCamera(){
+     var x = document.getElementById("FrontDoorCamera").checked;
+     if(x == false)
+     {
+       socket.emit('digitalWrite', '{"pin":"USR3", "value":0}');
+     }
+     else
+     {
+       socket.emit('digitalWrite', '{"pin":"USR3", "value":1}');
+     }
+  }
+
+  function FunBackYardCamera(){
+     var x = document.getElementById("BackYardCamera").checked;
+     if(x == false)
+     {
+       socket.emit('digitalWrite', '{"pin":"USR3", "value":0}');
+     }
+     else
+     {
+       socket.emit('digitalWrite', '{"pin":"USR3", "value":1}');
+     }
+  }
+</script>
+
+</head>
+
+<body>
+
+<div class="hss-heading-font">Home Security System</div>
+<br><br>
+
+
+<div class="grid-container">
+  <div class="grid-item">Living Room Light</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="LivingRoomLight" type="checkbox" onClick="FunLivingRoomLight();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
+  <div class="grid-item">Fan</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="TV" type="checkbox" onClick="FunTV();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
+  <div class="grid-item">Garage Door</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="GarageDoor" type="checkbox" onClick="FunGarageDoor();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
+  <div class="grid-item">Garage Door</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="GarageDoor" type="checkbox" onClick="FunGarageDoor();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
+  <div class="grid-item">Gas Range</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="GasRange" type="checkbox" onClick="FunGasRange();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
+  <div class="grid-item">Carbon Monoxide Sensor</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="CarbonMonoxideSensor" type="checkbox" onClick="FunCarbonMonoxideSensor();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
+  <div class="grid-item">Natural Gas Sensor</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="NaturalGasSensor" type="checkbox" onClick="FunNaturalGasSensor();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
+  <div class="grid-item">Motion Sensor</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="MotionSensor" type="checkbox" onClick="FunMotionSensor();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
+  <div class="grid-item">Front Door Camera</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="FrontDoorCamera" type="checkbox" onClick="FunFrontDoorCamera();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
+  <div class="grid-item">Back Yard Camera</div>
+  <div class="grid-item">
+    <label class="switch">
+    <input id="BackYardCamera" type="checkbox" onClick="FunBackYardCamera();">
+    <span class="slider round" "grid-item"></span>
+    </label>
+  </div>
