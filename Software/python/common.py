@@ -1,0 +1,41 @@
+
+source_Adapter_Id = ""
+destination_Adapter_Id = ""
+max_Transmission_Count = ""
+status = ""
+
+GDD_source_Adapter_Id = ""
+GDD_destination_Adapter_Id = ""
+GDD_max_Transmission_Count = ""
+GDD_status = ""
+
+PSD_source_Adapter_Id = ""
+PSD_destination_Adapter_Id = ""
+PSD_max_Transmission_Count = ""
+PSD_status = ""
+
+CO_source_Adapter_Id = ""
+CO_destination_Adapter_Id = ""
+CO_max_Transmission_Count = ""
+CO_status = ""
+GAS_source_Adapter_Id = ""
+GAS_destination_Adapter_Id = ""
+GAS_max_Transmission_Count = ""
+GAS_status = ""
+
+RANGE_source_Adapter_Id = ""
+RANGE_destination_Adapter_Id = ""
+RANGE_max_Transmission_Count = ""
+RANGE_status = ""
+
+pirSensorData = ""
+lightSwitch1Data = ""
+lightSwitch2Data = ""
+garageDoorData = ""
+coSensorData = ""
+rangeData = ""
+gasSensorData = ""
+garageDoorStatus = "closed"
+pirSensorStatus = 0
+coSensorStatus = "0"
+gasSensorStatus = "0"
