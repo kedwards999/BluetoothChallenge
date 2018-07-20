@@ -1,4 +1,3 @@
-
 import bluetooth
 import time
 import common
