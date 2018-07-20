@@ -32,7 +32,7 @@ pinMode(DOUTpin, INPUT);
 void loop() {
 
   HeatingPhase();
-  deplay(heatTime);
+  delay(heatTime);
   MeasurementPhase();
   delay(measurementTime);
   COlimit = digitalRead(DOUTpin);
